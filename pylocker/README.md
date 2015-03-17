@@ -1,6 +1,6 @@
 Pylocker
 ===
-Cryptolocker implemented in python. When pointed at a directory, it will recursively encrypt all files in that directory with AES128.
+Cryptolocker implemented in python. When pointed at a directory, it will recursively encrypt all files in that directory with AES-128.
 
 ### To-Do:
 * Randomly generate key and place it in a file (Just kept it static for testing and ease of use).
