@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import shutil
-from sys import argv
 import sys
+from sys import argv
 from os import walk, remove
 from Crypto import Random
 from Crypto.Cipher import AES
@@ -75,7 +75,7 @@ def main():
 
 	key = b'sixteenbytekeyzz'
 
-	if len(sys.argv) != 2: #Checking if an argument has been provided.
+	if len(sys.argv) < 2 or len(sys.argv) > 3: #Checking for correct num of arguments. 
 		print("[Error]\n\t Example ./pylocker dir_to_encrypt")
 		sys.exit()
 
@@ -96,7 +96,7 @@ def main():
                                     decrypt_file(en_file, key)
                                     remove(en_file)
         except ValueError: 
-            pass #If unexpected shit breaks, skip it.
+            pass #If unexpected things happen (permisison issues?), skip it.
 
 if __name__ == "__main__":
     main()
